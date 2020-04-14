@@ -3,7 +3,7 @@
 namespace GraphQL;
 
 use GraphQL\Exception\QueryError;
-use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Message\Response;
 
 /**
  * Class Result
@@ -18,7 +18,7 @@ class Results
     protected $responseBody;
 
     /**
-     * @var ResponseInterface
+     * @var Response
      */
     protected $responseObject;
 
@@ -32,12 +32,12 @@ class Results
      *
      * Receives json response from GraphQL api response and parses it as associative array or nested object accordingly
      *
-     * @param ResponseInterface $response
+     * @param Response $response
      * @param bool              $asArray
      *
      * @throws QueryError
      */
-    public function __construct(ResponseInterface $response, $asArray = false)
+    public function __construct(Response $response, $asArray = false)
     {
         $this->responseObject = $response;
         $this->responseBody   = $this->responseObject->getBody()->getContents();
@@ -96,7 +96,7 @@ class Results
     }
 
     /**
-     * @return ResponseInterface
+     * @return Response
      */
     public function getResponseObject()
     {
